@@ -27,8 +27,6 @@ namespace PilQ
     [Activity(Label = "PilQ", MainLauncher = true)]
     public class MainActivity : Activity
     {
-       
-        private ImageView _imageView;
         private ScaleImageView _scImageView;
         private ImageProcessingService imageProcessingService;
 
@@ -61,7 +59,6 @@ namespace PilQ
                     counterField.Text = taskResult.Count.ToString();
                     if (taskResult.Image != null)
                     {
-                        _imageView.SetImageBitmap(taskResult.Image);
                         _scImageView.SetImageBitmap(taskResult.Image);
                     }
 
@@ -83,12 +80,12 @@ namespace PilQ
                 CreateDirectoryForPictures();
 
                 Button button = FindViewById<Button>(Resource.Id.myButton);
-                _imageView = FindViewById<ImageView>(Resource.Id.imageView1);
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
                 imageProcessingService = new ImageProcessingService();
                 button.Click += TakeAPicture;
                 App.progressDialog = new ProgressDialog(this);
                 App.progressDialog.Indeterminate = true;
+                
                 App.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
                 App.progressDialog.SetMessage("Processing...Please wait...");
                 App.progressDialog.SetCancelable(false);

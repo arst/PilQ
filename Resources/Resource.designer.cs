@@ -63,17 +63,17 @@ namespace PilQ
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int counter = 2131034113;
-			
-			// aapt resource value: 0x7f050003
-			public const int imageView1 = 2131034115;
+			// aapt resource value: 0x7f050002
+			public const int counter = 2131034114;
 			
 			// aapt resource value: 0x7f050000
 			public const int myButton = 2131034112;
 			
-			// aapt resource value: 0x7f050002
-			public const int scImageView = 2131034114;
+			// aapt resource value: 0x7f050003
+			public const int scImageView = 2131034115;
+			
+			// aapt resource value: 0x7f050001
+			public const int textView1 = 2131034113;
 			
 			static Id()
 			{

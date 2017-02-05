@@ -28,7 +28,6 @@ namespace PilQ.Services
             Bitmap mutableBitmap = null;
             var imageBytes = File.ReadAllBytes(filename);
             var resized = await ResizeImageAsync(imageBytes, 800, 600);
-            //var resizedImageOriginal = await BitmapFactory.DecodeByteArrayAsync(resized, 0, resized.Length);
 
             using (var resizedImageOriginal = await BitmapFactory.DecodeByteArrayAsync(resized, 0, resized.Length))
             using (var resizedImage = (System.Drawing.Bitmap)resizedImageOriginal)
@@ -39,8 +38,8 @@ namespace PilQ.Services
                 canny.ApplyInPlace(res);
                 RecursiveBlobCounter blobCounter = new RecursiveBlobCounter();
                 blobCounter.FilterBlobs = true;
-                blobCounter.MinHeight = 10;
-                blobCounter.MinWidth = 10;
+                blobCounter.MinHeight = 20;
+                blobCounter.MinWidth = 20;
                 blobCounter.ProcessImage(res);
                 Blob[] blobs = blobCounter.GetObjectsInformation();
                 SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
@@ -54,6 +53,7 @@ namespace PilQ.Services
                     paint.Color = Color.Red;
                     paint.AntiAlias = true;
                     paint.SetStyle(Paint.Style.Stroke);
+                    paint.StrokeWidth = 5;
 
                     for (int i = 0, n = blobs.Length; i < n; i++)
                     {
