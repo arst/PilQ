@@ -21,6 +21,7 @@ namespace PilQ
         public static File _file;
         public static File _dir;     
         public static Bitmap bitmap;
+        public static ProgressDialog progressDialog;
     }
 
     [Activity(Label = "PilQ", MainLauncher = true)]
@@ -33,6 +34,11 @@ namespace PilQ
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
+            if (resultCode == Result.Canceled)
+            {
+                App.progressDialog.Hide();
+            }
+
             base.OnActivityResult(requestCode, resultCode, data);
 
             // Make it available in the gallery
@@ -62,6 +68,7 @@ namespace PilQ
                     var tmp = App._file;
                     App._file = null;
                     tmp.Delete();
+                    App.progressDialog.Hide();
                 });
             });
         }
@@ -80,6 +87,11 @@ namespace PilQ
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
                 imageProcessingService = new ImageProcessingService();
                 button.Click += TakeAPicture;
+                App.progressDialog = new ProgressDialog(this);
+                App.progressDialog.Indeterminate = true;
+                App.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                App.progressDialog.SetMessage("Processing...Please wait...");
+                App.progressDialog.SetCancelable(false);
                
             }
 
@@ -111,7 +123,7 @@ namespace PilQ
             App._file = new File(App._dir, "_latest.jpg");
 
             intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(App._file));
-
+            App.progressDialog.Show();
             StartActivityForResult(intent, 0);
         }
     }
