@@ -16,6 +16,7 @@ namespace PilQ
     using System.Threading.Tasks;
     using Components;
     using Services;
+    using Android.Preferences;
 
     public static class App {
         public static File _file;
@@ -80,9 +81,11 @@ namespace PilQ
                 CreateDirectoryForPictures();
 
                 Button button = FindViewById<Button>(Resource.Id.myButton);
+                Button optionsBt = FindViewById<Button>(Resource.Id.optionsBtn);
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
                 imageProcessingService = new ImageProcessingService();
                 button.Click += TakeAPicture;
+                optionsBt.Click += OpenOptions;
                 App.progressDialog = new ProgressDialog(this);
                 App.progressDialog.Indeterminate = true;
                 
@@ -92,6 +95,11 @@ namespace PilQ
                
             }
 
+        }
+
+        private void OpenOptions(object sender, EventArgs e)
+        {
+            StartActivity(typeof(SettingsActivity));
         }
 
         private void CreateDirectoryForPictures()

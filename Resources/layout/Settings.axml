@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="385.0dp"
+        android:layout_height="87.5dp"
+        android:id="@+id/relativeLayout1">
+        <TextView
+            android:text="Use additional filters"
+            android:id="@+id/additionalFiltersLblb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="13.5dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="4.0dp" />
+        <CheckBox
+            android:text=""
+            android:id="@+id/additionalFiltersCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32.0dp"
+            android:layout_marginTop="13.5dp"
+            android:textSize="50dp" />
+        <TextView
+            android:text="Enables an additioanl filters which may increase the precision but may increase CPU and memory usage."
+            android:id="@+id/additionalFiltersDesc"
+            android:textSize="10dp"
+            android:lines="2"
+            android:layout_width="313.0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/additionalFiltersLblb"
+            android:layout_marginLeft="4.0dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="385.0dp"
+        android:layout_height="87.5dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_marginTop="16.0dp">
+        <TextView
+            android:text="Use color filters"
+            android:id="@+id/colorFiltersLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="13.5dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="4.0dp" />
+        <CheckBox
+            android:text=""
+            android:id="@+id/colorFiltersCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32.0dp"
+            android:layout_marginTop="13.5dp"
+            android:textSize="50dp" />
+        <TextView
+            android:text="Enables a color filters which is usefull when your pills isn't quite white. Note: It may increase CPU and memory usage"
+            android:id="@+id/colorFiltersDesc"
+            android:textSize="10dp"
+            android:lines="2"
+            android:layout_width="310.5dp"
+            android:layout_height="28.5dp"
+            android:layout_below="@id/colorFiltersLbl"
+            android:layout_marginTop="3.5dp"
+            android:layout_marginLeft="4.0dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="385.0dp"
+        android:layout_height="87.0dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_marginTop="16.0dp">
+        <TextView
+            android:text="Min size for pills"
+            android:id="@+id/minCirleRadiusLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="13.5dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="4.0dp" />
+        <TextView
+            android:text="Minimum size for pills to be recognized. If you have a lot of small pills on the captured photo you need to dcrease this parameter."
+            android:id="@+id/colorFiltersDesc"
+            android:textSize="10dp"
+            android:lines="2"
+            android:layout_width="280.0dp"
+            android:layout_height="wrap_content"
+            android:numeric="integer"
+            android:layout_below="@id/minCirleRadiusLbl"
+            android:layout_marginLeft="4.0dp" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="92.5dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16.0dp"
+            android:id="@+id/editText1"
+            android:layout_marginRight="2.0dp" />
+    </RelativeLayout>
+</LinearLayout>
