@@ -27,7 +27,7 @@ namespace PilQ
     public class MainActivity : Activity
     {
         private ScaleImageView _scImageView;
-        private ImageProcessingService imageProcessingService;
+        private PillsRecognitionService pillsRecognitionService;
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -45,8 +45,8 @@ namespace PilQ
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
             var t = Task.Run(async () => {
-                var calResult = await this.imageProcessingService.RecognizeCircles(App._file.Path);
-                return calResult;
+                var recognitionResult = await this.pillsRecognitionService.RecognizePillsAsync(App._file.Path, 20, false, false);
+                return recognitionResult;
                 
             });
             t.ContinueWith((cs) =>
@@ -81,7 +81,7 @@ namespace PilQ
                 Button button = FindViewById<Button>(Resource.Id.myButton);
                 Button optionsBt = FindViewById<Button>(Resource.Id.optionsBtn);
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
-                imageProcessingService = new ImageProcessingService();
+                pillsRecognitionService = new PillsRecognitionService();
                 button.Click += TakeAPicture;
                 optionsBt.Click += OpenOptions;
                 App.progressDialog = new ProgressDialog(this);
