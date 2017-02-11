@@ -15,10 +15,7 @@
  * 
  * Ported from mic: https://github.com/matabii/scale-imageview-android/blob/master/src/com/matabii/dev/scaleimageview/ScaleImageView.java
  */
-
-using System;
-
-using Android.Content;
+ using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using Android.Views;

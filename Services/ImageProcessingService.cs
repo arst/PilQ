@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using PilQ.Model;
+﻿using PilQ.Model;
 using System.IO;
 using Android.Graphics;
 using Accord.Imaging.Filters;
@@ -31,7 +20,7 @@ namespace PilQ.Services
 
             using (var resizedImageOriginal = await BitmapFactory.DecodeByteArrayAsync(resized, 0, resized.Length))
             using (var resizedImage = (System.Drawing.Bitmap)resizedImageOriginal)
-            using (System.Drawing.Bitmap b = AForge.Imaging.Image.Clone((System.Drawing.Bitmap)resizedImage, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+            using (System.Drawing.Bitmap b = Accord.Imaging.Image.Clone((System.Drawing.Bitmap)resizedImage, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
             {
                 var res = Grayscale.CommonAlgorithms.BT709.Apply(b);
                 CannyEdgeDetector canny = new CannyEdgeDetector();

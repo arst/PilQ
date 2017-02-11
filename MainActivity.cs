@@ -12,11 +12,9 @@ namespace PilQ
     using Java.IO;
     using Environment = Android.OS.Environment;
     using Uri = Android.Net.Uri;
-    using Android.Views;
     using System.Threading.Tasks;
     using Components;
     using Services;
-    using Android.Preferences;
 
     public static class App {
         public static File _file;
