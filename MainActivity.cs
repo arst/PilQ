@@ -45,7 +45,13 @@ namespace PilQ
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
             var t = Task.Run(async () => {
-                var recognitionResult = await this.pillsRecognitionService.RecognizePillsAsync(App._file.Path, 20, false, false);
+                var recognitionResult = await 
+                                        this.pillsRecognitionService
+                                        .RecognizePillsAsync(
+                                            App._file.Path,
+                                            Helpers.Settings.MinCircleRadiusSettings, 
+                                            Helpers.Settings.UseAdditionalFiltersSettings,
+                                            Helpers.Settings.UseColorFiltersSettings);
                 return recognitionResult;
                 
             });
