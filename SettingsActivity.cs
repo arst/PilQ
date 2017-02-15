@@ -21,6 +21,7 @@ namespace PilQ
             useColorFiltersCheckbox.Checked = Settings.UseColorFiltersSettings;
             useAdditionalFiltersCheckBox.Checked = Settings.UseAdditionalFiltersSettings;
             minCircleReadius.Text = Settings.MinCircleRadiusSettings.ToString();
+            thresholdValue.Text = Settings.Threshold.ToString();
 
             useAdditionalFiltersCheckBox.CheckedChange += additionalFiltersCheckbox_changed;
             useColorFiltersCheckbox.CheckedChange += useColorFiltersCheckbox_changed;
