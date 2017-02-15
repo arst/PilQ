@@ -10,7 +10,7 @@
         android:minHeight="25px"
         android:layout_width="385.0dp"
         android:layout_height="87.5dp"
-        android:id="@+id/relativeLayout1">
+        android:id="@+id/additionalFiltersLayout">
         <TextView
             android:text="Use additional filters"
             android:id="@+id/additionalFiltersLblb"
@@ -44,7 +44,7 @@
         android:minHeight="25px"
         android:layout_width="385.0dp"
         android:layout_height="87.5dp"
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/colorFiltersLayout"
         android:layout_marginTop="16.0dp">
         <TextView
             android:text="Use color filters"
@@ -80,7 +80,7 @@
         android:minHeight="25px"
         android:layout_width="385.0dp"
         android:layout_height="87.0dp"
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/minCircleRadiusLayout"
         android:layout_marginTop="16.0dp">
         <TextView
             android:text="Min size for pills"
@@ -107,7 +107,43 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="16.0dp"
-            android:id="@+id/editText1"
+            android:id="@+id/minCircleRadius"
+            android:layout_marginRight="2.0dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="385.0dp"
+        android:layout_height="87.0dp"
+        android:id="@+id/thresholdLayout"
+        android:layout_marginTop="16.0dp"
+        android:visibility="invisible">
+        <TextView
+            android:text="Threshold value"
+            android:id="@+id/thresholdLbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="13.5dp"
+            android:textSize="30dp"
+            android:layout_marginLeft="4.0dp" />
+        <TextView
+            android:text="Threshold value for additional filter."
+            android:id="@+id/thresholdDesc"
+            android:textSize="10dp"
+            android:lines="2"
+            android:layout_width="280.0dp"
+            android:layout_height="wrap_content"
+            android:numeric="integer"
+            android:layout_below="@id/thresholdLbl"
+            android:layout_marginLeft="4.0dp" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="92.5dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="16.0dp"
+            android:id="@+id/thresholdValue"
             android:layout_marginRight="2.0dp" />
     </RelativeLayout>
 </LinearLayout>

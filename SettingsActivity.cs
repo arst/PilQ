@@ -16,7 +16,8 @@ namespace PilQ
             SetContentView(Resource.Layout.Settings);
             var useAdditionalFiltersCheckBox = FindViewById<CheckBox>(Resource.Id.additionalFiltersCheckbox);
             var useColorFiltersCheckbox = FindViewById<CheckBox>(Resource.Id.colorFiltersCheckbox);
-            var minCircleReadius = FindViewById<EditText>(Resource.Id.editText1);
+            var minCircleReadius = FindViewById<EditText>(Resource.Id.minCircleRadius);
+            var thresholdValue = FindViewById<EditText>(Resource.Id.thresholdValue);
             useColorFiltersCheckbox.Checked = Settings.UseColorFiltersSettings;
             useAdditionalFiltersCheckBox.Checked = Settings.UseAdditionalFiltersSettings;
             minCircleReadius.Text = Settings.MinCircleRadiusSettings.ToString();
@@ -24,11 +25,23 @@ namespace PilQ
             useAdditionalFiltersCheckBox.CheckedChange += additionalFiltersCheckbox_changed;
             useColorFiltersCheckbox.CheckedChange += useColorFiltersCheckbox_changed;
             minCircleReadius.TextChanged += minCircleReadius_changed;
+            thresholdValue.TextChanged += thresholdValue_changed;
+        }
+
+        private void thresholdValue_changed(object sender, TextChangedEventArgs e)
+        {
+            int threshold;
+
+            if (Int32.TryParse(e.Text.ToString(), out threshold))
+            {
+                Settings.Threshold = threshold;
+            }
         }
 
         private void minCircleReadius_changed(object sender, TextChangedEventArgs e)
         {
             int minCircleRadius;
+
             if (Int32.TryParse(e.Text.ToString(), out minCircleRadius))
             {
                 Settings.MinCircleRadiusSettings = minCircleRadius;
@@ -43,6 +56,16 @@ namespace PilQ
         private void additionalFiltersCheckbox_changed(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             Settings.UseAdditionalFiltersSettings = e.IsChecked;
+
+            if (Settings.UseAdditionalFiltersSettings)
+            {
+                var threshold = FindViewById<RelativeLayout>(Resource.Id.thresholdLayout);
+                threshold.Visibility = Android.Views.ViewStates.Visible;
+            }
+            else {
+                var threshold = FindViewById<RelativeLayout>(Resource.Id.thresholdLayout);
+                threshold.Visibility = Android.Views.ViewStates.Invisible;
+            }
         }
     }
 }

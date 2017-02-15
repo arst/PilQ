@@ -15,6 +15,7 @@ namespace PilQ
     using System.Threading.Tasks;
     using Components;
     using Services;
+    using Android.Views;
 
     public static class App {
         public static File _file;
@@ -28,6 +29,12 @@ namespace PilQ
     {
         private ScaleImageView _scImageView;
         private PillsRecognitionService pillsRecognitionService;
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -85,20 +92,20 @@ namespace PilQ
                 CreateDirectoryForPictures();
 
                 Button button = FindViewById<Button>(Resource.Id.myButton);
-                Button optionsBt = FindViewById<Button>(Resource.Id.optionsBtn);
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
                 pillsRecognitionService = new PillsRecognitionService();
                 button.Click += TakeAPicture;
-                optionsBt.Click += OpenOptions;
                 App.progressDialog = new ProgressDialog(this);
                 App.progressDialog.Indeterminate = true;
                 
                 App.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
                 App.progressDialog.SetMessage("Processing...Please wait...");
                 App.progressDialog.SetCancelable(false);
-               
             }
 
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "PilQ";
         }
 
         private void OpenOptions(object sender, EventArgs e)

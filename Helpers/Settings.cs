@@ -28,7 +28,10 @@ namespace PilQ.Helpers
 
         private const string MinimumCircleRadius = "min_circle_radius";
         private static readonly int MinCircleRadiusDefault = 20;
-            #endregion
+
+        private const string ThresholdFilter = "threshold_filter";
+        private const int ThresholdFilterDefault = 100;
+        #endregion
 
 
         public static bool UseAdditionalFiltersSettings
@@ -64,6 +67,18 @@ namespace PilQ.Helpers
             set
             {
                 AppSettings.AddOrUpdateValue<int>(MinimumCircleRadius, value);
+            }
+        }
+
+        public static int Threshold
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault<int>(ThresholdFilter, ThresholdFilterDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue<int>(ThresholdFilter, value);
             }
         }
     }   

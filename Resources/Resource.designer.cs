@@ -45,7 +45,16 @@ namespace PilQ
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int blue_button = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int ic_settings_applications_black_48dp = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int Icon = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int pills = 2130837507;
 			
 			static Drawable()
 			{
@@ -60,50 +69,71 @@ namespace PilQ
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050007
-			public const int additionalFiltersCheckbox = 2131034119;
+			// aapt resource value: 0x7f070008
+			public const int additionalFiltersCheckbox = 2131165192;
 			
-			// aapt resource value: 0x7f050008
-			public const int additionalFiltersDesc = 2131034120;
+			// aapt resource value: 0x7f070009
+			public const int additionalFiltersDesc = 2131165193;
 			
-			// aapt resource value: 0x7f050006
-			public const int additionalFiltersLblb = 2131034118;
+			// aapt resource value: 0x7f070006
+			public const int additionalFiltersLayout = 2131165190;
 			
-			// aapt resource value: 0x7f05000b
-			public const int colorFiltersCheckbox = 2131034123;
+			// aapt resource value: 0x7f070007
+			public const int additionalFiltersLblb = 2131165191;
 			
-			// aapt resource value: 0x7f05000c
-			public const int colorFiltersDesc = 2131034124;
+			// aapt resource value: 0x7f07000c
+			public const int colorFiltersCheckbox = 2131165196;
 			
-			// aapt resource value: 0x7f05000a
-			public const int colorFiltersLbl = 2131034122;
+			// aapt resource value: 0x7f07000d
+			public const int colorFiltersDesc = 2131165197;
 			
-			// aapt resource value: 0x7f050002
-			public const int counter = 2131034114;
+			// aapt resource value: 0x7f07000a
+			public const int colorFiltersLayout = 2131165194;
 			
-			// aapt resource value: 0x7f05000e
-			public const int editText1 = 2131034126;
+			// aapt resource value: 0x7f07000b
+			public const int colorFiltersLbl = 2131165195;
 			
-			// aapt resource value: 0x7f05000d
-			public const int minCirleRadiusLbl = 2131034125;
+			// aapt resource value: 0x7f070004
+			public const int counter = 2131165188;
 			
-			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			// aapt resource value: 0x7f070003
+			public const int imageView1 = 2131165187;
 			
-			// aapt resource value: 0x7f050004
-			public const int optionsBtn = 2131034116;
+			// aapt resource value: 0x7f070002
+			public const int linearLayout1 = 2131165186;
 			
-			// aapt resource value: 0x7f050005
-			public const int relativeLayout1 = 2131034117;
+			// aapt resource value: 0x7f070015
+			public const int menu_edit = 2131165205;
 			
-			// aapt resource value: 0x7f050009
-			public const int relativeLayout2 = 2131034121;
+			// aapt resource value: 0x7f070010
+			public const int minCircleRadius = 2131165200;
 			
-			// aapt resource value: 0x7f050003
-			public const int scImageView = 2131034115;
+			// aapt resource value: 0x7f07000e
+			public const int minCircleRadiusLayout = 2131165198;
 			
-			// aapt resource value: 0x7f050001
-			public const int textView1 = 2131034113;
+			// aapt resource value: 0x7f07000f
+			public const int minCirleRadiusLbl = 2131165199;
+			
+			// aapt resource value: 0x7f070001
+			public const int myButton = 2131165185;
+			
+			// aapt resource value: 0x7f070005
+			public const int scImageView = 2131165189;
+			
+			// aapt resource value: 0x7f070013
+			public const int thresholdDesc = 2131165203;
+			
+			// aapt resource value: 0x7f070011
+			public const int thresholdLayout = 2131165201;
+			
+			// aapt resource value: 0x7f070012
+			public const int thresholdLbl = 2131165202;
+			
+			// aapt resource value: 0x7f070014
+			public const int thresholdValue = 2131165204;
+			
+			// aapt resource value: 0x7f070000
+			public const int toolbar = 2131165184;
 			
 			static Id()
 			{
@@ -124,12 +154,31 @@ namespace PilQ
 			// aapt resource value: 0x7f030001
 			public const int Settings = 2130903041;
 			
+			// aapt resource value: 0x7f030002
+			public const int toolbar = 2130903042;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int top_menus = 2131099648;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}
@@ -149,6 +198,25 @@ namespace PilQ
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int MyTheme = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int blue_button = 2131034113;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

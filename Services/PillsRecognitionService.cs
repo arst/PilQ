@@ -56,7 +56,7 @@ namespace PilQ.Services
 
             if (useAdditionalFilters)
             {
-                Threshold ts = new Threshold(160);
+                Threshold ts = new Threshold(PilQ.Helpers.Settings.Threshold);
                 filters.Add(ts);
             }
 
