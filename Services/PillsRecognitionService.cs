@@ -15,6 +15,7 @@ using Accord.Imaging.Filters;
 using Accord;
 using PilQ.Constants;
 using System.Threading.Tasks;
+using System.Security;
 
 namespace PilQ.Services
 {
@@ -24,6 +25,10 @@ namespace PilQ.Services
 
         public async Task<RecognitionResult> RecognizePillsAsync(string fileName, int minPillSize, bool useAdditionalFilters, bool useColorFilters)
         {
+            if (String.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("File name to process can't be null or empty");
+            }
             var imageBytes = File.ReadAllBytes(fileName);
             var result = await this.imageProcessingService.RecognizeShapesAsync(imageBytes, minPillSize, this.AssembleFilters(useAdditionalFilters, useColorFilters), PillsTypeEnum.Round);
 
@@ -31,6 +36,7 @@ namespace PilQ.Services
             return result;
         }
 
+        [SecurityCritical]
         private FiltersSequence AssembleFilters(bool useAdditionalFilters, bool useColorFilters)
         {
             FiltersSequence filters = new FiltersSequence();

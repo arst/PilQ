@@ -15,11 +15,12 @@
  * 
  * Ported from mic: https://github.com/matabii/scale-imageview-android/blob/master/src/com/matabii/dev/scaleimageview/ScaleImageView.java
  */
- using Android.Content;
+using Android.Content;
 using Android.Graphics;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 
 namespace PilQ.Components
 {
@@ -239,12 +240,12 @@ namespace PilQ.Components
         {
             var x = x0 - x1;
             var y = y0 - y1;
-            return FloatMath.Sqrt(x * x + y * y);
+            return (float)Math.Sqrt(x * x + y * y);
         }
 
         private float DispDistance()
         {
-            return FloatMath.Sqrt(m_Width * m_Width + m_Height * m_Height);
+            return (float)Math.Sqrt(m_Width * m_Width + m_Height * m_Height);
         }
 
         public override bool OnTouchEvent(MotionEvent e)

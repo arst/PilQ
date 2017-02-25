@@ -1,5 +1,6 @@
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System.Security;
 
 namespace PilQ.Helpers
 {
@@ -8,6 +9,7 @@ namespace PilQ.Helpers
   /// of your client applications. All settings are laid out the same exact way with getters
   /// and setters. 
   /// </summary>
+  [SecurityCritical]
   public static class Settings
   {
         private static ISettings AppSettings

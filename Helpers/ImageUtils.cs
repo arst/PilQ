@@ -19,6 +19,12 @@ namespace PilQ.Helpers
     {
         public static async Task<byte[]> ResizeImageAsync(byte[] imageData, float width, float height)
         {
+
+            if (imageData == null || (imageData != null && imageData.Length == 0))
+            {
+                throw new ArgumentException("Image data can't be null or empty");
+            }
+
             using (Bitmap originalImage = await BitmapFactory.DecodeByteArrayAsync(imageData, 0, imageData.Length))
             {
                 float targetHeight = 0;

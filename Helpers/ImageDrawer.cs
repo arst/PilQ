@@ -21,6 +21,17 @@ namespace PilQ.Helpers
 
         public ImageDrawer(Bitmap imageToDrawOn, Paint drawer)
         {
+
+            if (imageToDrawOn == null)
+            {
+                throw new ArgumentException("Image to draw can't be null");
+            }
+
+            if(drawer == null)
+            {
+                throw new ArgumentException("Drawer can't be null");
+            }
+
             this.underlayingImage = imageToDrawOn;
             this.underlayingCanvas = new Canvas(this.underlayingImage);
             this.defaultPaint = drawer;
@@ -33,17 +44,37 @@ namespace PilQ.Helpers
 
         public void DrawCircle(float x, float y, float radius, Paint paint)
         {
+            if (paint == null)
+            {
+                throw new ArgumentException("Paint can't be null");
+            }
+
             underlayingCanvas.DrawCircle(x, y, radius, paint);
         }
 
         public void DrawPath(List<Point> points)
         {
+            if (points == null)
+            {
+                throw new ArgumentException("List of the points to draw can't be null");
+            }
+
             this.DrawPath(points, this.defaultPaint);
         }
 
         public void DrawPath(List<Point> points, Paint paint)
         {
-            if (points != null && points.Any())
+            if (paint == null)
+            {
+                throw new ArgumentException("Paint can't be null");
+            }
+
+            if (points == null)
+            {
+                throw new ArgumentException("List of the points to draw can't be null");
+            }
+
+            if (points.Any())
             {
                 var startingPoint = points.FirstOrDefault();
                 Path pathToDraw = new Path();
@@ -59,11 +90,20 @@ namespace PilQ.Helpers
 
         public void Dispose()
         {
-            var capturedCanvas = this.underlayingCanvas;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            if (capturedCanvas != null)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                capturedCanvas.Dispose();
+                var capturedCanvas = this.underlayingCanvas;
+
+                if (capturedCanvas != null)
+                {
+                    capturedCanvas.Dispose();
+                }
             }
         }
     }

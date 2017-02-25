@@ -11,14 +11,25 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Accord;
+using System.Security;
 
 namespace PilQ.Services
 {
     public class ImageProcessingService
     {
-
         public async Task<RecognitionResult> RecognizeShapesAsync(byte[] imageBytes, int minSize, FiltersSequence filters, PillsTypeEnum shapeType)
         {
+
+            if (imageBytes == null || (imageBytes != null && imageBytes.Length == 0))
+            {
+                throw new ArgumentException("Image data can't be null or empty");
+            }
+
+            if (filters == null)
+            {
+                throw new ArgumentException("Filters collection can't be null");
+            }
+
             var counter = 0;
             Bitmap mutableBitmap = null;
             var resized = await ImageUtils.ResizeImageAsync(imageBytes, DefaultProcessingImageSize.Width, DefaultProcessingImageSize.Height);
