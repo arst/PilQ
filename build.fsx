@@ -1,5 +1,6 @@
 #r @"packages/FAKE/tools/FakeLib.dll"
 #load "build-helpers.fsx"
+#load "HockeyAppHelper.fsx"
 
 open Fake
 open System
