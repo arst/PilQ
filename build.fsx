@@ -25,8 +25,7 @@ Target "android-package" (fun () ->
     |> AndroidSignAndAlign (fun defaults ->
         {defaults with 
             KeystorePath = "pilq.keystore"
-            //KeystorePassword = "admin1"
-            KeystorePassword = "344518"//Environment.GetEnvironmentVariable("PilQKeystorePassword")
+            KeystorePassword = Environment.GetEnvironmentVariable("PilQKeystorePassword")
             KeystoreAlias = "pilq"
             ZipalignPath = @"C:\Program Files (x86)\Android\android-sdk\build-tools\23.0.1\zipalign.exe"
         })
@@ -35,8 +34,8 @@ Target "android-package" (fun () ->
 
 
 
-"android-package" 
-    ==> "common-build"
+"common-build"
+    ==> "android-package"
 
 
 RunTargetOrDefault "android-package"
