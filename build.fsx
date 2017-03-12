@@ -7,6 +7,7 @@ open System.IO
 open System.Linq
 open BuildHelpers
 open Fake.XamarinHelper
+open HockeyAppHelper
 
 
 Target "common-build" (fun () ->
@@ -32,10 +33,21 @@ Target "android-package" (fun () ->
    |> fun file -> TeamCityHelper.PublishArtifact file.FullName
 )
 
+Target "android-hockeyapp" (fun () ->
+    let buildCounter = BuildHelpers.GetBuildCounter TeamCityHelper.TeamCityBuildNumber
+
+    let hockeyAppApiToken = Environment.GetEnvironmentVariable("HockeyAppApiToken")
+
+    let appPath = Directory.EnumerateFiles(Path.Combine( "Todo.Android", "bin", "Release"), "*.apk", SearchOption.AllDirectories).First()
+
+    HockeyAppHelper.Upload hockeyAppApiToken appPath buildCounter
+)
+
 
 
 "common-build"
     ==> "android-package"
+    ==> "android-hockeyapp"
 
 
 RunTargetOrDefault "android-package"
