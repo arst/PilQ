@@ -16,4 +16,9 @@ let RestorePackages solutionFile =
     Exec "nuget" ("restore " + solutionFile)
     solutionFile |> RestoreComponents (fun defaults -> {defaults with ToolPath = "tools/xamarin/xamarin-component.exe" })
 
+let GetBuildCounter (str:Option<string>) =
+    match str with
+    | Some(v) -> v
+    | None -> "Local"
+
 
