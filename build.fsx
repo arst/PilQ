@@ -39,7 +39,7 @@ Target "android-hockeyapp" (fun () ->
 
     let hockeyAppApiToken = Environment.GetEnvironmentVariable("HockeyAppApiToken")
 
-    let appPath = Directory.EnumerateFiles(Path.Combine( "Todo.Android", "bin", "Release"), "*.apk", SearchOption.AllDirectories).First()
+    let appPath = Directory.EnumerateFiles(Path.Combine("bin", "Release"), "*.apk", SearchOption.AllDirectories).First()
 
     HockeyAppHelper.Upload hockeyAppApiToken appPath buildCounter
 )
@@ -51,4 +51,4 @@ Target "android-hockeyapp" (fun () ->
     ==> "android-hockeyapp"
 
 
-RunTargetOrDefault "android-package"
+RunTargetOrDefault "android-hockeyapp"
