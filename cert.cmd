@@ -1,0 +1,1 @@
+call "C:\Program Files\Java\jdk1.8.0_121\bin\keytool.exe" -genkey -v -keystore pilq.keystore -alias pilq -keyalg RSA -keysize 2048 -validity 10000
