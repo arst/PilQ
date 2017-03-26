@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="13.5dp"
             android:textSize="30dp"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
         <CheckBox
             android:text=""
             android:id="@+id/additionalFiltersCheckbox"
@@ -37,7 +37,7 @@
             android:layout_width="313.0dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/additionalFiltersLblb"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
     </RelativeLayout>
     <RelativeLayout
         android:minWidth="25px"
@@ -54,7 +54,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="13.5dp"
             android:textSize="30dp"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
         <CheckBox
             android:text=""
             android:id="@+id/colorFiltersCheckbox"
@@ -73,7 +73,7 @@
             android:layout_height="28.5dp"
             android:layout_below="@id/colorFiltersLbl"
             android:layout_marginTop="3.5dp"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
     </RelativeLayout>
     <RelativeLayout
         android:minWidth="25px"
@@ -90,7 +90,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="13.5dp"
             android:textSize="30dp"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
         <TextView
             android:text="Minimum size for pills to be recognized. If you have a lot of small pills on the captured photo you need to dcrease this parameter."
             android:id="@+id/colorFiltersDesc"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:numeric="integer"
             android:layout_below="@id/minCirleRadiusLbl"
-            android:layout_marginLeft="4.0dp" />
+            android:layout_marginLeft="10.0dp" />
         <EditText
             android:inputType="number"
             android:layout_width="92.5dp"

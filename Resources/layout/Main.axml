@@ -1,66 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:fab="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
         android:layout_height="49.5dp" />
-    <Button
-        android:id="@+id/myButton"
-        android:layout_width="320.0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/openCamera"
-        android:layout_marginRight="32.25dp"
-        android:layout_marginLeft="32.25dp"
-        android:layout_marginTop="10.5dp"
-        android:layout_marginBottom="13.5dp"
-        android:layout_gravity="center" />
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="40.5dp"
-        android:id="@+id/linearLayout1"
-        android:layout_marginTop="10.0dp"
-        android:layout_marginBottom="10.0dp">
-        <ImageView
-            android:src="@drawable/pills"
-            android:layout_width="61.5dp"
-            android:layout_height="match_parent"
-            android:id="@+id/imageView1"
-            android:layout_marginLeft="127.5dp"
-            android:layout_marginBottom="4.0dp" />
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout1">
         <TextView
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_width="58.0dp"
-            android:layout_height="match_parent"
+            android:text="0"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:id="@+id/counter"
-            android:width="600dp"
-            android:height="200dp"
-            android:layout_marginBottom="4.0dp"
             android:editable="false"
-            android:numeric="integer"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:text="0" />
+            android:layout_marginTop="15.0dp"
+            android:layout_marginBottom="6.0dp" />
+        <PilQ.Components.ScaleImageView
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:id="@+id/scImageView"
+            android:layout_gravity="fill" />
     </LinearLayout>
-    <PilQ.Components.ScaleImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="320.0dp"
-        android:layout_height="339.0dp"
-        android:adjustViewBounds="true"
-        android:id="@+id/scImageView"
-        android:layout_marginTop="9.5dp"
-        android:layout_marginBottom="10.0dp"
-        android:layout_marginLeft="32.25dp"
-        android:layout_marginRight="32.25dp"
-        android:layout_gravity="center" />
-    <com.refractored.fab.FloatingActionButton
+    <com.refractored.fab.FloatingActionButton xmlns:p3="http://schemas.android.com/tools"
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,5 +43,8 @@
         android:layout_margin="16dp"
         fab:fab_colorNormal="#47b4ed"
         fab:fab_colorPressed="#3283ad"
-        android:src="@drawable/ic_camera_enhance_black" />
-</LinearLayout>
+        android:src="@drawable/ic_camera_enhance_black"
+        p3:visibility="visible"
+        android:elevation="33dp"
+        android:layout_marginTop="16.0dp" />
+</FrameLayout>

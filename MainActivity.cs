@@ -21,7 +21,7 @@ namespace PilQ
     using System.Collections.Concurrent;
     using PilQ.Model;
 
-    public static class ApplicationContext {
+    public static class ApplicationStateHolder {
         public static File _file;
         public static File _dir;     
         public static Bitmap bitmap;
@@ -41,7 +41,7 @@ namespace PilQ
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            PilQ.ApplicationContext.mainActivity = this;
+            PilQ.ApplicationStateHolder.mainActivity = this;
             
 
             SetContentView(Resource.Layout.Main);
@@ -49,25 +49,22 @@ namespace PilQ
             if (IsThereAnAppToTakePictures())
             {
                 CreateDirectoryForPictures();
-
-                Button button = FindViewById<Button>(Resource.Id.myButton);
                 FloatingActionButton floatingButton = FindViewById<FloatingActionButton>(Resource.Id.fab);
                 _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
 
                 pillsRecognitionService = new PillsRecognitionService();
-                button.Click += TakeAPicture;
                 floatingButton.Click += TakeAPicture;
-                PilQ.ApplicationContext.progressDialog = new ProgressDialog(this);
-                PilQ.ApplicationContext.progressDialog.Indeterminate = true;
-                PilQ.ApplicationContext.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
-                PilQ.ApplicationContext.progressDialog.SetMessage("Processing...Please wait...");
-                PilQ.ApplicationContext.progressDialog.SetCancelable(false);
-                if (PilQ.ApplicationContext.runningTask != null)
+                PilQ.ApplicationStateHolder.progressDialog = new ProgressDialog(this);
+                PilQ.ApplicationStateHolder.progressDialog.Indeterminate = true;
+                PilQ.ApplicationStateHolder.progressDialog.SetProgressStyle(ProgressDialogStyle.Spinner);
+                PilQ.ApplicationStateHolder.progressDialog.SetMessage("Processing...Please wait...");
+                PilQ.ApplicationStateHolder.progressDialog.SetCancelable(false);
+                if (PilQ.ApplicationStateHolder.runningTask != null)
                 {
-                    PilQ.ApplicationContext.runningTask.ContinueWith((t) => {
-                        PilQ.ApplicationContext.progressDialog.Hide();
+                    PilQ.ApplicationStateHolder.runningTask.ContinueWith((t) => {
+                        PilQ.ApplicationStateHolder.progressDialog.Hide();
                     });
-                    PilQ.ApplicationContext.progressDialog.Show();
+                    PilQ.ApplicationStateHolder.progressDialog.Show();
                 }
             }
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
@@ -87,7 +84,7 @@ namespace PilQ
         {
             if (resultCode == Result.Canceled)
             {
-                PilQ.ApplicationContext.progressDialog.Hide();
+                PilQ.ApplicationStateHolder.progressDialog.Hide();
             }
 
             base.OnActivityResult(requestCode, resultCode, data);
@@ -95,23 +92,23 @@ namespace PilQ
             // Make it available in the gallery
 
             Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
-            Uri contentUri = Uri.FromFile(PilQ.ApplicationContext._file);
+            Uri contentUri = Uri.FromFile(PilQ.ApplicationStateHolder._file);
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
-            
-            var recognitionTask = Task.Run(async () => {
+            ApplicationStateHolder.progressDialog.Show();
+            var recognitionTask = new Task<Task<RecognitionResult>>(async () => {
                 var recognitionResult = await 
                                         this.pillsRecognitionService
                                         .RecognizePillsAsync(
-                                            PilQ.ApplicationContext._file.Path,
+                                            PilQ.ApplicationStateHolder._file.Path,
                                             Helpers.Settings.MinCircleRadiusSettings,
                                             Helpers.Settings.UseAdditionalFiltersSettings,
                                             Helpers.Settings.UseColorFiltersSettings);
                 return recognitionResult;
                 
             });
-            
-            PilQ.ApplicationContext.runningTask = recognitionTask.ContinueWith(this.OnRecognitionCompleted);
+            PilQ.ApplicationStateHolder.runningTask = recognitionTask.ContinueWith(this.OnRecognitionCompleted);
+            recognitionTask.Start();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -119,7 +116,7 @@ namespace PilQ
             switch (item.ItemId)
             {
                 case (Resource.Id.menu_edit):
-                    PilQ.ApplicationContext.mainActivity.OpenOptions();
+                    PilQ.ApplicationStateHolder.mainActivity.OpenOptions();
                     break;
                 default:
                     break;
@@ -127,22 +124,23 @@ namespace PilQ
             return base.OnOptionsItemSelected(item);
         }
 
-        public void OnRecognitionCompleted(Task<RecognitionResult> completedTask)
+        public void OnRecognitionCompleted(Task<Task<RecognitionResult>> completedTask)
         {
-            var taskResult = completedTask.Result;
+            var taskResult = completedTask.Result.Result;
             RunOnUiThread(() =>
             {
-                var counterField = PilQ.ApplicationContext.mainActivity.FindViewById<TextView>(Resource.Id.counter);
-                var imageView = PilQ.ApplicationContext.mainActivity.FindViewById<ScaleImageView>(Resource.Id.scImageView);
-                counterField.Text = taskResult.Count.ToString();
+                var counterField = PilQ.ApplicationStateHolder.mainActivity.FindViewById<TextView>(Resource.Id.counter);
+                var imageView = PilQ.ApplicationStateHolder.mainActivity.FindViewById<ScaleImageView>(Resource.Id.scImageView);
                 if (taskResult.Image != null)
                 {
                     imageView.SetImageBitmap(taskResult.Image);
                 }
-                var tmp = PilQ.ApplicationContext._file;
-                PilQ.ApplicationContext._file = null;
+                counterField.Text = taskResult.Count.ToString();
+                var tmp = PilQ.ApplicationStateHolder._file;
+                PilQ.ApplicationStateHolder._file = null;
                 tmp.Delete();
-                PilQ.ApplicationContext.progressDialog.Hide();
+                PilQ.ApplicationStateHolder.progressDialog.Hide();
+                ApplicationStateHolder.runningTask = null;
             });
         }
         #endregion
@@ -155,12 +153,12 @@ namespace PilQ
 
         private void CreateDirectoryForPictures()
         {
-            PilQ.ApplicationContext._dir = new File(
+            PilQ.ApplicationStateHolder._dir = new File(
                 Environment.GetExternalStoragePublicDirectory(
                     Environment.DirectoryPictures), "PilQ");
-            if (!PilQ.ApplicationContext._dir.Exists())
+            if (!PilQ.ApplicationStateHolder._dir.Exists())
             {
-                PilQ.ApplicationContext._dir.Mkdirs();
+                PilQ.ApplicationStateHolder._dir.Mkdirs();
             }
         }
 
@@ -176,10 +174,9 @@ namespace PilQ
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
 
-            PilQ.ApplicationContext._file = new File(PilQ.ApplicationContext._dir, "_latest.jpg");
+            PilQ.ApplicationStateHolder._file = new File(PilQ.ApplicationStateHolder._dir, "_latest.jpg");
 
-            intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(PilQ.ApplicationContext._file));
-            PilQ.ApplicationContext.progressDialog.Show();
+            intent.PutExtra(MediaStore.ExtraOutput, Uri.FromFile(PilQ.ApplicationStateHolder._file));
             StartActivityForResult(intent, 0);
         }
         #endregion
