@@ -85,6 +85,7 @@ namespace PilQ
             if (resultCode == Result.Canceled)
             {
                 PilQ.ApplicationStateHolder.progressDialog.Hide();
+                return;
             }
 
             base.OnActivityResult(requestCode, resultCode, data);
@@ -134,7 +135,7 @@ namespace PilQ
                 if (taskResult.Image != null)
                 {
                     imageView.SetImageBitmap(taskResult.Image);
-                }
+                }   
                 counterField.Text = taskResult.Count.ToString();
                 var tmp = PilQ.ApplicationStateHolder._file;
                 PilQ.ApplicationStateHolder._file = null;
