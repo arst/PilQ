@@ -9,7 +9,8 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        android:layout_height="49.5dp" />
+        android:layout_height="49.5dp"
+        android:alpha="0.5" />
     <LinearLayout
         android:orientation="vertical"
         android:minWidth="25px"
@@ -18,13 +19,11 @@
         android:layout_height="match_parent"
         android:id="@+id/linearLayout1"
         android:layout_below="@+id/counter">
-        <PilQ.Components.ScaleImageView
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
+        <uk.co.senab.photoview.PhotoView
             android:id="@+id/scImageView"
-            android:layout_gravity="fill" />
+            android:layout_gravity="fill"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
     <com.refractored.fab.FloatingActionButton xmlns:p3="http://schemas.android.com/tools"
         android:id="@+id/fab"
@@ -38,16 +37,16 @@
         p3:visibility="visible"
         android:elevation="33dp"
         android:layout_marginTop="16.0dp" />
-  <TextView
-            android:text="0"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/counter"
-            android:editable="false"
-            android:layout_gravity="bottom|left"
-            android:gravity="center"
-            android:layout_marginTop="15.0dp"
-            android:textSize="30dp"
-            android:textColor="#47b4ed"
-            android:layout_marginBottom="25.0dp" />
+    <TextView
+        android:text="0"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/counter"
+        android:editable="false"
+        android:layout_gravity="bottom|left"
+        android:gravity="center"
+        android:layout_marginTop="15.0dp"
+        android:textSize="30dp"
+        android:textColor="#47b4ed"
+        android:layout_marginBottom="25.0dp" />
 </FrameLayout>

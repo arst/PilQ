@@ -1,12 +1,12 @@
-using Android.Graphics;
-using PilQ.Helpers;
-using PilQ.Imaging;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace PilQ.Services
+namespace PilQ.PillsRecognition
 {
+    using Android.Graphics;
+    using PilQ.Helpers;
+    using PilQ.Imaging;
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
+
     public class PillsRecognitionService
     {
         private readonly Recognizer recognizer = new Recognizer();

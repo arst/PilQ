@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PilQ.Imaging
+﻿namespace PilQ.Imaging
 {
+    using System.Drawing;
+
     public class CircleShape
     {
         public CircleShape(float radius, int x, int y)

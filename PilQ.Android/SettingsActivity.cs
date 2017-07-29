@@ -1,12 +1,12 @@
-using System;
-using Android.App;
-using Android.OS;
-using Android.Text;
-using Android.Widget;
-using PilQ.Helpers;
-
 namespace PilQ
 {
+    using Android.App;
+    using Android.OS;
+    using Android.Text;
+    using Android.Widget;
+    using PilQ.Helpers;
+    using System;
+
     [Activity(Label = "SettingsActivity")]
     public class SettingsActivity : Activity
     {

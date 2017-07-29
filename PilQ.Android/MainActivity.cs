@@ -1,25 +1,23 @@
 namespace PilQ
 {
-    using System;
-    using System.Collections.Generic;
     using Android.App;
     using Android.Content;
     using Android.Content.PM;
     using Android.Graphics;
     using Android.OS;
     using Android.Provider;
+    using Android.Views;
     using Android.Widget;
+    using com.refractored.fab;
+    using Components;
+    using ImageViews.Photo;
     using Java.IO;
+    using PilQ.PillsRecognition;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Environment = Android.OS.Environment;
     using Uri = Android.Net.Uri;
-    using System.Threading.Tasks;
-    using Components;
-    using Services;
-    using Android.Views;
-    using System.Threading;
-    using com.refractored.fab;
-    using System.Collections.Concurrent;
-    using PilQ.Imaging;
 
     public static class ApplicationStateHolder {
         public static File _file;
@@ -33,7 +31,7 @@ namespace PilQ
     [Activity(Label = "PilQ", MainLauncher = true)]
     public class MainActivity : Activity
     {
-        private ScaleImageView _scImageView;
+        private PhotoView _scImageView;
         private PillsRecognitionService pillsRecognitionService;
 
 
@@ -50,7 +48,7 @@ namespace PilQ
             {
                 CreateDirectoryForPictures();
                 FloatingActionButton floatingButton = FindViewById<FloatingActionButton>(Resource.Id.fab);
-                _scImageView = FindViewById<ScaleImageView>(Resource.Id.scImageView);
+                _scImageView = FindViewById<PhotoView>(Resource.Id.scImageView);
 
                 pillsRecognitionService = new PillsRecognitionService();
                 floatingButton.Click += TakeAPicture;
@@ -131,7 +129,7 @@ namespace PilQ
             RunOnUiThread(() =>
             {
                 var counterField = PilQ.ApplicationStateHolder.mainActivity.FindViewById<TextView>(Resource.Id.counter);
-                var imageView = PilQ.ApplicationStateHolder.mainActivity.FindViewById<ScaleImageView>(Resource.Id.scImageView);
+                var imageView = PilQ.ApplicationStateHolder.mainActivity.FindViewById<PhotoView>(Resource.Id.scImageView);
                 if (taskResult.MarkedImage != null)
                 {
                     imageView.SetImageBitmap(taskResult.MarkedImage);

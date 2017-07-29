@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PilQ.Android", "PilQ.Android.csproj", "{EF14197A-6C3D-46AF-9F1A-A13769267580}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PilQ.Android", "PilQ.Android\PilQ.Android.csproj", "{EF14197A-6C3D-46AF-9F1A-A13769267580}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PilQ.Imaging", "PilQ.Imaging\PilQ.Imaging.csproj", "{93B27140-AF16-4400-80B0-A661376CA8BB}"
 EndProject

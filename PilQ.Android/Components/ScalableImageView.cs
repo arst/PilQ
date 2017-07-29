@@ -15,15 +15,14 @@
  * 
  * Ported from mic: https://github.com/matabii/scale-imageview-android/blob/master/src/com/matabii/dev/scaleimageview/ScaleImageView.java
  */
-using Android.Content;
-using Android.Graphics;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
-using Java.Lang;
-
 namespace PilQ.Components
 {
+    using Android.Content;
+    using Android.Graphics;
+    using Android.Util;
+    using Android.Views;
+    using Android.Widget;
+    using Java.Lang;
 
     public class ScaleImageViewGestureDetector : GestureDetector.SimpleOnGestureListener
     {

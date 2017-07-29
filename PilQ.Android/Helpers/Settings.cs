@@ -1,15 +1,15 @@
-using Plugin.Settings;
-using Plugin.Settings.Abstractions;
-using System.Security;
-
 namespace PilQ.Helpers
 {
-  /// <summary>
-  /// This is the Settings static class that can be used in your Core solution or in any
-  /// of your client applications. All settings are laid out the same exact way with getters
-  /// and setters. 
-  /// </summary>
-  [SecurityCritical]
+    using Plugin.Settings;
+    using Plugin.Settings.Abstractions;
+    using System.Security;
+
+    /// <summary>
+    /// This is the Settings static class that can be used in your Core solution or in any
+    /// of your client applications. All settings are laid out the same exact way with getters
+    /// and setters. 
+    /// </summary>
+    [SecurityCritical]
   public static class Settings
   {
         private static ISettings AppSettings
@@ -40,11 +40,11 @@ namespace PilQ.Helpers
         {
             get
             {
-            return AppSettings.GetValueOrDefault<bool>(UseAdditionalFilters, UseAdditionalFiltersDefault);
+            return AppSettings.GetValueOrDefault(UseAdditionalFilters, UseAdditionalFiltersDefault);
             }
             set
             {
-            AppSettings.AddOrUpdateValue<bool>(UseAdditionalFilters, value);
+            AppSettings.AddOrUpdateValue(UseAdditionalFilters, value);
             }
         }
 
@@ -52,11 +52,11 @@ namespace PilQ.Helpers
         {
                 get
                 {
-                    return AppSettings.GetValueOrDefault<bool>(UseColorFilters, UseColorFiltersDefault);
+                    return AppSettings.GetValueOrDefault(UseColorFilters, UseColorFiltersDefault);
                 }
                 set
                 {
-                    AppSettings.AddOrUpdateValue<bool>(UseColorFilters, value);
+                    AppSettings.AddOrUpdateValue(UseColorFilters, value);
                 }
             }
 
@@ -64,11 +64,11 @@ namespace PilQ.Helpers
         {
             get
             {
-                return AppSettings.GetValueOrDefault<int>(MinimumCircleRadius, MinCircleRadiusDefault);
+                return AppSettings.GetValueOrDefault(MinimumCircleRadius, MinCircleRadiusDefault);
             }
             set
             {
-                AppSettings.AddOrUpdateValue<int>(MinimumCircleRadius, value);
+                AppSettings.AddOrUpdateValue(MinimumCircleRadius, value);
             }
         }
 
@@ -76,11 +76,11 @@ namespace PilQ.Helpers
         {
             get
             {
-                return AppSettings.GetValueOrDefault<int>(ThresholdFilter, ThresholdFilterDefault);
+                return AppSettings.GetValueOrDefault(ThresholdFilter, ThresholdFilterDefault);
             }
             set
             {
-                AppSettings.AddOrUpdateValue<int>(ThresholdFilter, value);
+                AppSettings.AddOrUpdateValue(ThresholdFilter, value);
             }
         }
     }   

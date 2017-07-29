@@ -1,13 +1,7 @@
-﻿using Accord;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PilQ.Imaging
+﻿namespace PilQ.Imaging
 {
+    using System.Collections.Generic;
+
     public class RecognitionResult
     {
         public RecognitionResult(int count, List<CircleShape> circles)

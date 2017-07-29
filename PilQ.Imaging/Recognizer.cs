@@ -1,19 +1,15 @@
-﻿using Accord;
-using Accord.Imaging;
-using Accord.Imaging.Filters;
-using Accord.Math.Geometry;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PilQ.Imaging
+﻿namespace PilQ.Imaging
 {
+    using Accord;
+    using Accord.Imaging;
+    using Accord.Imaging.Filters;
+    using Accord.Math.Geometry;
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Security;
+
     public class Recognizer
     {
         public RecognitionResult RecognizeShapes(Bitmap image, RecognitionOptions options)
