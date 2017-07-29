@@ -29,10 +29,10 @@ namespace PilQ.Helpers
         private static readonly bool UseColorFiltersDefault = false;
 
         private const string MinimumCircleRadius = "min_circle_radius";
-        private static readonly int MinCircleRadiusDefault = 20;
+        private static readonly int MinCircleRadiusDefault = 10;
 
         private const string ThresholdFilter = "threshold_filter";
-        private const int ThresholdFilterDefault = 100;
+        private const int ThresholdFilterDefault = 130;
         #endregion
 
 

@@ -1,72 +1,50 @@
+using Android.Graphics;
+using PilQ.Helpers;
+using PilQ.Imaging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using PilQ.Model;
 using System.IO;
-using Accord.Imaging.Filters;
-using Accord;
-using PilQ.Constants;
 using System.Threading.Tasks;
-using System.Security;
 
 namespace PilQ.Services
 {
     public class PillsRecognitionService
     {
-        private readonly ImageProcessingService imageProcessingService = new ImageProcessingService();
+        private readonly Recognizer recognizer = new Recognizer();
 
-        public async Task<RecognitionResult> RecognizePillsAsync(string fileName, int minPillSize, bool useAdditionalFilters, bool useColorFilters)
+        public async Task<PillsRecognitionResult> RecognizePillsAsync(string fileName, int minPillSize, bool useAdditionalFilters, bool useColorFilters)
         {
             if (String.IsNullOrEmpty(fileName))
             {
                 throw new ArgumentException("File name to process can't be null or empty");
             }
+            RecognitionResult shapeRecognitionResult = null;
+            Bitmap mutableAndoidBitmap = null;
             var imageBytes = File.ReadAllBytes(fileName);
-            var result = await this.imageProcessingService.RecognizeShapesAsync(imageBytes, minPillSize, this.AssembleFilters(useAdditionalFilters, useColorFilters), PillsTypeEnum.Round);
 
-
-            return result;
-        }
-
-        [SecurityCritical]
-        private FiltersSequence AssembleFilters(bool useAdditionalFilters, bool useColorFilters)
-        {
-            FiltersSequence filters = new FiltersSequence();
-
-            if (useColorFilters)
+            using (var androidBitmap = await ImageUtils.ResizeImageAsync(imageBytes, DefaultProcessingImageSize.Width, DefaultProcessingImageSize.Height))
             {
-                ColorFiltering colorFilter = new ColorFiltering();
-
-                colorFilter.Red = new IntRange(0, 64);
-                colorFilter.Green = new IntRange(0, 64);
-                colorFilter.Blue = new IntRange(0, 64);
-                colorFilter.FillOutsideRange = false;
-
-                filters.Add(colorFilter);
+                mutableAndoidBitmap = androidBitmap.Copy(Bitmap.Config.Argb8888, true);
+                var bitmap = (System.Drawing.Bitmap)androidBitmap;
+                RecognitionOptions options = new RecognitionOptions(minPillSize, useAdditionalFilters, useColorFilters, new ShapeType[] { ShapeType.Circle });
+                shapeRecognitionResult = this.recognizer.RecognizeShapes(bitmap.Clone(System.Drawing.Imaging.PixelFormat.Format24bppRgb), options);
             }
 
-            if (useAdditionalFilters)
+            if (mutableAndoidBitmap != null)
             {
-                filters.Add(new GaussianSharpen(4, 11));
+                Paint paint = new Paint();
+                paint.Color = Color.Red;
+                paint.AntiAlias = true;
+                paint.SetStyle(Paint.Style.Stroke);
+                paint.StrokeWidth = 5;
+                ImageDrawer d = new ImageDrawer(mutableAndoidBitmap, paint);
+                foreach (var circle in shapeRecognitionResult.CircleShapes)
+                {
+                    d.DrawCircle(circle.Center.X, circle.Center.Y, circle.Radius);
+                }
             }
-            filters.Add(Grayscale.CommonAlgorithms.BT709);
-            filters.Add(new CannyEdgeDetector());
+            
 
-            if (useAdditionalFilters)
-            {
-                Threshold ts = new Threshold(PilQ.Helpers.Settings.Threshold);
-                filters.Add(ts);
-            }
-
-            return filters;
+            return new PillsRecognitionResult(shapeRecognitionResult.Count, mutableAndoidBitmap);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace PilQ.Helpers
 {
     public static class ImageUtils
     {
-        public static async Task<byte[]> ResizeImageAsync(byte[] imageData, float width, float height)
+        public static async Task<Bitmap> ResizeImageAsync(byte[] imageData, float width, float height)
         {
 
             if (imageData == null || (imageData != null && imageData.Length == 0))
@@ -44,17 +44,9 @@ namespace PilQ.Helpers
                     float factor = imageWidth / width;
                     targetHeight = imageHeight / factor;
                 }
-                using (Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)targetWidth, (int)targetHeight, false))
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        resizedImage.Compress(Bitmap.CompressFormat.Jpeg, 100, ms);
-                        resizedImage.Recycle();
-                        originalImage.Recycle();
-                        return ms.ToArray();
-                    }
-                }
-
+                Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)targetWidth, (int)targetHeight, false);
+                originalImage.Recycle();
+                return resizedImage;
             }
         }
     }

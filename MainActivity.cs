@@ -19,7 +19,7 @@ namespace PilQ
     using System.Threading;
     using com.refractored.fab;
     using System.Collections.Concurrent;
-    using PilQ.Model;
+    using PilQ.Imaging;
 
     public static class ApplicationStateHolder {
         public static File _file;
@@ -97,7 +97,7 @@ namespace PilQ
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
             ApplicationStateHolder.progressDialog.Show();
-            var recognitionTask = new Task<Task<RecognitionResult>>(async () => {
+            var recognitionTask = new Task<Task<PillsRecognitionResult>>(async () => {
                 var recognitionResult = await 
                                         this.pillsRecognitionService
                                         .RecognizePillsAsync(
@@ -125,17 +125,17 @@ namespace PilQ
             return base.OnOptionsItemSelected(item);
         }
 
-        public void OnRecognitionCompleted(Task<Task<RecognitionResult>> completedTask)
+        public void OnRecognitionCompleted(Task<Task<PillsRecognitionResult>> completedTask)
         {
             var taskResult = completedTask.Result.Result;
             RunOnUiThread(() =>
             {
                 var counterField = PilQ.ApplicationStateHolder.mainActivity.FindViewById<TextView>(Resource.Id.counter);
                 var imageView = PilQ.ApplicationStateHolder.mainActivity.FindViewById<ScaleImageView>(Resource.Id.scImageView);
-                if (taskResult.Image != null)
+                if (taskResult.MarkedImage != null)
                 {
-                    imageView.SetImageBitmap(taskResult.Image);
-                }   
+                    imageView.SetImageBitmap(taskResult.MarkedImage);
+                }
                 counterField.Text = taskResult.Count.ToString();
                 var tmp = PilQ.ApplicationStateHolder._file;
                 PilQ.ApplicationStateHolder._file = null;
