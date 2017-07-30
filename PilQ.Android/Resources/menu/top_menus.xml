@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
        android:id="@+id/menu_edit"
-       android:icon="@drawable/ic_settings_applications_black_48dp"
+       android:text="Settings"
        android:showAsAction="ifRoom"
        android:title="Settings" />
 </menu>
