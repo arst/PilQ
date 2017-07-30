@@ -38,6 +38,7 @@
     <Compile Include="CircleShape.cs" />
     <Compile Include="DefaultProcessingImageSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuadrilateralShape.cs" />
     <Compile Include="RecognitionOptions.cs" />
     <Compile Include="RecognitionResult.cs" />
     <Compile Include="Recognizer.cs" />

@@ -4,13 +4,15 @@
 
     public class PillsRecognitionResult
     {
-        public PillsRecognitionResult(int count, Bitmap image)
+        public PillsRecognitionResult(int roundPillsCount, int quadrilateralPillsCount, Bitmap image)
         {
-            this.Count = count;
+            this.RoundPillsCount = roundPillsCount;
+            this.QuadrilateralPillsCount = quadrilateralPillsCount;
             this.MarkedImage = image;
         }
 
-        public int Count { get; private set; }
+        public int RoundPillsCount { get; private set; }
+        public int QuadrilateralPillsCount{ get; private set; }
         public Bitmap MarkedImage { get; private set; }
     }
 }

@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="Components\ScalableImageView.cs" />
     <Compile Include="Helpers\ImageDrawer.cs" />
+    <Compile Include="Helpers\ImageDrawerExtensions.cs" />
     <Compile Include="Helpers\ImageUtils.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="MainActivity.cs" />

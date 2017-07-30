@@ -22,7 +22,6 @@ namespace PilQ
     public static class ApplicationStateHolder {
         public static File _file;
         public static File _dir;     
-        public static Bitmap bitmap;
         public static ProgressDialog progressDialog;
         public static MainActivity mainActivity;
         public static Task runningTask; 
@@ -87,27 +86,24 @@ namespace PilQ
             }
 
             base.OnActivityResult(requestCode, resultCode, data);
-
-            // Make it available in the gallery
-
             Intent mediaScanIntent = new Intent(Intent.ActionMediaScannerScanFile);
             Uri contentUri = Uri.FromFile(PilQ.ApplicationStateHolder._file);
             mediaScanIntent.SetData(contentUri);
             SendBroadcast(mediaScanIntent);
             ApplicationStateHolder.progressDialog.Show();
-            var recognitionTask = new Task<Task<PillsRecognitionResult>>(async () => {
+            var recognitionTask = Task.Run(async () => {
                 var recognitionResult = await 
                                         this.pillsRecognitionService
                                         .RecognizePillsAsync(
                                             PilQ.ApplicationStateHolder._file.Path,
                                             Helpers.Settings.MinCircleRadiusSettings,
                                             Helpers.Settings.UseAdditionalFiltersSettings,
-                                            Helpers.Settings.UseColorFiltersSettings);
+                                            Helpers.Settings.UseColorFiltersSettings,
+                                            Helpers.Settings.Threshold);
                 return recognitionResult;
                 
             });
-            PilQ.ApplicationStateHolder.runningTask = recognitionTask.ContinueWith(this.OnRecognitionCompleted);
-            recognitionTask.Start();
+            PilQ.ApplicationStateHolder.runningTask = recognitionTask.ContinueWith(OnRecognitionCompleted);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -123,18 +119,18 @@ namespace PilQ
             return base.OnOptionsItemSelected(item);
         }
 
-        public void OnRecognitionCompleted(Task<Task<PillsRecognitionResult>> completedTask)
+        public async Task OnRecognitionCompleted(Task<PillsRecognitionResult> completedTask)
         {
-            var taskResult = completedTask.Result.Result;
+            var recognitionResult = await completedTask;
             RunOnUiThread(() =>
             {
                 var counterField = PilQ.ApplicationStateHolder.mainActivity.FindViewById<TextView>(Resource.Id.counter);
                 var imageView = PilQ.ApplicationStateHolder.mainActivity.FindViewById<PhotoView>(Resource.Id.scImageView);
-                if (taskResult.MarkedImage != null)
+                if (recognitionResult.MarkedImage != null)
                 {
-                    imageView.SetImageBitmap(taskResult.MarkedImage);
+                    imageView.SetImageBitmap(recognitionResult.MarkedImage);
                 }
-                counterField.Text = taskResult.Count.ToString();
+                counterField.Text = String.Format("R: {0}, Q: {1}, A: {2}", recognitionResult.RoundPillsCount, recognitionResult.QuadrilateralPillsCount, recognitionResult.QuadrilateralPillsCount + recognitionResult.RoundPillsCount);//taskResult.Count.ToString();
                 var tmp = PilQ.ApplicationStateHolder._file;
                 PilQ.ApplicationStateHolder._file = null;
                 tmp.Delete();

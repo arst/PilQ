@@ -40,7 +40,7 @@
             android:elevation="33dp"
             android:layout_marginTop="16.0dp" />
         <TextView
-            android:text="0"
+            android:text="Result"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:id="@+id/counter"
@@ -48,7 +48,6 @@
             android:layout_gravity="bottom|left"
             android:gravity="center"
             android:layout_marginTop="15.0dp"
-            android:textSize="30dp"
             android:textColor="@color/primary_material_light"
             android:layout_marginBottom="25.0dp"
             android:typeface="normal" />

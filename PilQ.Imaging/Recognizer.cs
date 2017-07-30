@@ -25,7 +25,7 @@
                 throw new ArgumentNullException("Recognition options can't be null");
             }
             RecognitionResult result = null;
-            var filters = this.AssembleFilters(options.UseAdditionalFilters, options.UseColorFilterts);
+            var filters = this.AssembleFilters(options);
             var afterApplyFilterImageResult = filters.Apply(image);
             RecursiveBlobCounter blobCounter = new RecursiveBlobCounter();
             blobCounter.FilterBlobs = true;
@@ -36,27 +36,36 @@
             SimpleShapeChecker shapeChecker = new SimpleShapeChecker();
 
             List<CircleShape> recognizedCircles = new List<CircleShape>();
+            List<QuadrilateralShape> recognizeQuadrilaterals = new List<QuadrilateralShape>();
 
             foreach (var blob in blobs)
             {
                 float radius;
                 Accord.Point centerPoint;
 
-                if (shapeChecker.IsCircle(blobCounter.GetBlobsEdgePoints(blob), out centerPoint, out radius))
+                if (options.ShapeTypes.Contains(ShapeType.Circle) && shapeChecker.IsCircle(blobCounter.GetBlobsEdgePoints(blob), out centerPoint, out radius))
                 {
                     recognizedCircles.Add(new CircleShape(radius, (int)centerPoint.X, (int)centerPoint.Y));
                 }
+                else if (options.ShapeTypes.Contains(ShapeType.Rectangle) &&  shapeChecker.IsQuadrilateral(blobCounter.GetBlobsEdgePoints(blob)))
+                {
+                    var shapeEdgePoints = blobCounter
+                                            .GetBlobsEdgePoints(blob)
+                                            .Select(ep => new System.Drawing.Point(ep.X, ep.Y))
+                                            .ToList();
+                    recognizeQuadrilaterals.Add(new QuadrilateralShape(shapeEdgePoints));
+                }
             }
-            result = new RecognitionResult(recognizedCircles.Count, recognizedCircles.ToList());
+            result = new RecognitionResult(recognizedCircles.Count + recognizeQuadrilaterals.Count, recognizedCircles, recognizeQuadrilaterals);
             return result;
         }
 
         [SecurityCritical]
-        private FiltersSequence AssembleFilters(bool useAdditionalFilters, bool useColorFilters)
+        private FiltersSequence AssembleFilters(RecognitionOptions options)
         {
             FiltersSequence filters = new FiltersSequence();
 
-            if (useColorFilters)
+            if (options.UseColorFilterts)
             {
                 ColorFiltering colorFilter = new ColorFiltering();
 
@@ -68,16 +77,16 @@
                 filters.Add(colorFilter);
             }
 
-            if (useAdditionalFilters)
+            if (options.UseAdditionalFilters)
             {
                 filters.Add(new GaussianSharpen(4, 11));
             }
             filters.Add(Grayscale.CommonAlgorithms.BT709);
             filters.Add(new CannyEdgeDetector());
 
-            if (useAdditionalFilters)
+            if (options.UseAdditionalFilters)
             {
-                Threshold ts = new Threshold(130); // TODO: pass it from settings
+                Threshold ts = new Threshold(options.Threshold);
                 filters.Add(ts);
             }
 
