@@ -1,12 +1,12 @@
 # PilQ
 
-Xamarin.Android application for pills counting.
+:iphone: Xamarin.Android application that allows you to count pills.
 One of the most annoying work included in a clinical trial is a pills counting. So I created this small application for my wife to make her life a little bit easier.
-Works with round and quadratic pills.
+:pill: Works with round and quadratic pills. :pill:
 
 # Recognition
 
-Application uses Accord.Net library for recognition related stuff.
+Application uses :musical_score: Accord.Net library for pills objects recognition.
 
 # Usage
 
