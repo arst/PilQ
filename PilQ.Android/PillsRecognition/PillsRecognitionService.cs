@@ -1,12 +1,13 @@
 namespace PilQ.PillsRecognition
 {
+    extern alias shim;
+
     using Android.Graphics;
     using PilQ.Helpers;
     using PilQ.Imaging;
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using System.Linq;
 
     public class PillsRecognitionService
     {
@@ -25,9 +26,9 @@ namespace PilQ.PillsRecognition
             using (var androidBitmap = await ImageUtils.ResizeImageAsync(imageBytes, DefaultProcessingImageSize.Width, DefaultProcessingImageSize.Height))
             {
                 mutableAndoidBitmap = androidBitmap.Copy(Bitmap.Config.Argb8888, true);
-                var bitmap = (System.Drawing.Bitmap)androidBitmap;
-                RecognitionOptions options = new RecognitionOptions(minPillSize, useAdditionalFilters, useColorFilters, new ShapeType[] { ShapeType.Circle, ShapeType.Rectangle }, threshold);
-                shapeRecognitionResult = this.recognizer.RecognizeShapes(bitmap.Clone(System.Drawing.Imaging.PixelFormat.Format24bppRgb), options);
+                var bitmap = (shim::System.Drawing.Bitmap)androidBitmap;
+                RecognitionOptions options = new RecognitionOptions(minPillSize, useAdditionalFilters, useColorFilters, new ShapeType[] { ShapeType.Circle }, threshold);
+                shapeRecognitionResult = this.recognizer.RecognizeShapes(bitmap.Clone(shim::System.Drawing.Imaging.PixelFormat.Format24bppRgb), options);
             }
 
             if (mutableAndoidBitmap != null)

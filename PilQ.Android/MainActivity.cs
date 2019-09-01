@@ -37,6 +37,8 @@ namespace PilQ
         #region  Activity Lifecycle
         protected override void OnCreate(Bundle bundle)
         {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.SetVmPolicy(builder.Build());
             base.OnCreate(bundle);
             PilQ.ApplicationStateHolder.mainActivity = this;
             
