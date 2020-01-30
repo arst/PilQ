@@ -1,7 +1,7 @@
 # PilQ
 
 :iphone: Xamarin.Android application that allows you to count pills.
-One of the most annoying parts of clinical trials is a necessity to count pills, that irresponsible patients decided not to take. So I created this small application for my wife to make her life and lifge of her colleagues a little bit easier.
+One of the most annoying parts of clinical trials is a necessity to count pills, that irresponsible patients decided not to take. So I created this small application for my wife to make her life and life of her colleagues a little bit easier.
 :pill: Works with round and quadratic pills. :pill:
 
 # Recognition
